@@ -2,119 +2,187 @@
 
 Writing code is half the job. The other half is making it work correctly and keeping it working.
 
+## 🎯 TypeScript: Your First Debugger
+
+### Compiler as Your Friend
+
+The TypeScript compiler catches many bugs before your code even runs:
+
+```typescript
+// TypeScript catches this at compile time!
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
+function greetUser(user: User) {
+  console.log(`Hello, ${user.name}!`);
+}
+
+const user = {
+  id: 1,
+  name: "Alice"
+  // ❌ Error: Property 'email' is missing
+};
+
+greetUser(user);
+```
+
+**Strategy:** Always fix TypeScript errors before running your code!
+
 ## 🐛 Debugging Strategies
 
 ### The Scientific Method for Debugging
 
-1. **Observe** - What's actually happening?
+1. **Observe** - What's actually happening? What's the error?
 2. **Hypothesize** - What might be causing it?
 3. **Test** - Try one fix at a time
 4. **Verify** - Did it work?
 5. **Repeat** - If not, try another hypothesis
 
-### Print Debugging (Your Best Friend)
+### Console Debugging (Your Best Friend)
 
 **Simple but effective:**
-```python
-@app.route('/notes/<int:note_id>')
-def get_note(note_id):
-    print(f"🔍 Looking for note with ID: {note_id}")
-    note = Note.query.filter_by(id=note_id).first()
-    print(f"📝 Found note: {note}")
-    
-    if not note:
-        print("❌ Note not found!")
-        return "Not found", 404
-    
-    print(f"✅ Returning note: {note.title}")
-    return render_template('note.html', note=note)
+```typescript
+app.get('/api/tasks/:id', async (req, res) => {
+  console.log('🔍 Looking for task with ID:', req.params.id);
+  console.log('🔍 Type:', typeof req.params.id);
+  
+  const task = await db.tasks.findOne({ where: { id: req.params.id } });
+  console.log('📝 Found task:', task);
+  
+  if (!task) {
+    console.log('❌ Task not found!');
+    return res.status(404).json({ error: 'Not found' });
+  }
+  
+  console.log('✅ Returning task:', task.title);
+  res.json({ task });
+});
 ```
 
 **Pro Tips:**
 - Use emojis to make output easy to scan: 🔍 ✅ ❌ 📝
-- Print variable types: `print(f"Type: {type(note_id)}")`
-- Print at entry and exit of functions
-- Remove or comment out prints before committing!
+- Log variable types: `console.log('Type:', typeof value)`
+- Log at entry and exit of functions
+- Use `console.table()` for arrays of objects
+- Remove console.logs before committing (or use a logger)
 
-### Flask Debug Mode
+### Development Mode with Auto-Reload
 
-**Enable it during development:**
-```python
-# app.py
-if __name__ == '__main__':
-    app.run(debug=True)
+**Using nodemon with ts-node:**
+```json
+// package.json
+{
+  "scripts": {
+    "dev": "nodemon --exec ts-node src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js"
+  }
+}
 ```
 
 **Benefits:**
 - Auto-reload when code changes
-- Detailed error pages
-- Interactive debugger in browser
+- Faster development cycle
+- See errors immediately
 
-**⚠️ WARNING: Never use debug=True in production!**
+**⚠️ WARNING: Never use in production! Use `npm start` with compiled code.**
 
-### Using Python's pdb Debugger
+### VS Code Debugger
 
-**Add breakpoints:**
-```python
-import pdb
-
-@app.route('/notes', methods=['POST'])
-def create_note():
-    title = request.form['title']
-    pdb.set_trace()  # Execution stops here
-    note = Note(title=title)
-    db.session.add(note)
-    db.session.commit()
+**Setup launch.json:**
+```json
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug TypeScript",
+      "runtimeArgs": ["-r", "ts-node/register"],
+      "args": ["${workspaceFolder}/src/server.ts"],
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "sourceMaps": true
+    }
+  ]
+}
 ```
 
-**pdb Commands:**
-- `n` - next line
-- `s` - step into function
-- `c` - continue execution
-- `p variable` - print variable
-- `l` - show current location
-- `q` - quit debugger
+**Add breakpoints:**
+```typescript
+app.post('/api/tasks', async (req, res) => {
+  const { title, description } = req.body;
+  // Click in the gutter to add a breakpoint here
+  const task = await createTask(title, description);
+  res.status(201).json({ task });
+});
+```
 
-## 📊 Logging (Better than Prints)
+**Debugger Features:**
+- Pause execution at breakpoints
+- Step through code line by line
+- Inspect variables and call stack
+- Evaluate expressions in debug console
+
+## 📊 Logging (Better than Console.log)
 
 ### Why Logging?
 
-- Can turn on/off without changing code
-- Different levels (INFO, WARNING, ERROR)
+- Can turn on/off based on environment
+- Different levels (DEBUG, INFO, WARN, ERROR)
 - Can save to files
 - Can filter by severity
+- Structured logging for production
 
-### Basic Logging Setup
+### Simple Logger Setup
 
-```python
-import logging
+```typescript
+// src/utils/logger.ts
+export const logger = {
+  debug: (message: string, meta?: any) => {
+    if (process.env.NODE_ENV === 'development') {
+      console.log(`[DEBUG] ${message}`, meta || '');
+    }
+  },
+  
+  info: (message: string, meta?: any) => {
+    console.log(`[INFO] ${message}`, meta || '');
+  },
+  
+  warn: (message: string, meta?: any) => {
+    console.warn(`[WARN] ${message}`, meta || '');
+  },
+  
+  error: (message: string, error?: Error) => {
+    console.error(`[ERROR] ${message}`, error?.message || '');
+    if (error?.stack) {
+      console.error(error.stack);
+    }
+  }
+};
 
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-
-logger = logging.getLogger(__name__)
-
-@app.route('/notes', methods=['POST'])
-def create_note():
-    logger.info("Creating new note")
+// Usage in routes
+app.post('/api/tasks', async (req, res) => {
+  logger.info('Creating new task');
+  
+  try {
+    const { title, description } = req.body;
+    logger.debug('Task data:', { title, description });
     
-    try:
-        title = request.form['title']
-        logger.debug(f"Note title: {title}")
-        
-        note = Note(title=title)
-        db.session.add(note)
-        db.session.commit()
-        
-        logger.info(f"Note created with ID: {note.id}")
-        return redirect('/notes')
-        
-    except Exception as e:
-        logger.error(f"Error creating note: {e}")
-        return "Error creating note", 500
+    const task = await createTask(title, description);
+    
+    logger.info(`Task created with ID: ${task.id}`);
+    res.status(201).json({ task });
+    
+  } catch (error) {
+    logger.error('Error creating task', error as Error);
+    res.status(500).json({ error: 'Failed to create task' });
+  }
+});
 ```
 
 ### Logging Levels
@@ -127,104 +195,140 @@ def create_note():
 | **ERROR** | Serious problem | Database connection failed, file not found |
 | **CRITICAL** | System-level failure | Database corrupted, out of memory |
 
-### Advanced Logging Configuration
+### Production Logging with Winston
 
-```python
-import logging
-from logging.handlers import RotatingFileHandler
+For production, use a proper logging library:
 
-# Create logs directory if it doesn't exist
-import os
-if not os.path.exists('logs'):
-    os.mkdir('logs')
+```typescript
+// npm install winston
+import winston from 'winston';
 
-# Configure file handler
-file_handler = RotatingFileHandler(
-    'logs/app.log',
-    maxBytes=10240,  # 10KB
-    backupCount=10
-)
-file_handler.setFormatter(logging.Formatter(
-    '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'
-))
-file_handler.setLevel(logging.INFO)
+export const logger = winston.createLogger({
+  level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
+  format: winston.format.combine(
+    winston.format.timestamp(),
+    winston.format.json()
+  ),
+  transports: [
+    // Write to console
+    new winston.transports.Console({
+      format: winston.format.simple()
+    }),
+    // Write to file
+    new winston.transports.File({ 
+      filename: 'logs/error.log', 
+      level: 'error' 
+    }),
+    new winston.transports.File({ 
+      filename: 'logs/combined.log' 
+    })
+  ]
+});
 
-# Configure console handler
-console_handler = logging.StreamHandler()
-console_handler.setLevel(logging.DEBUG)
-
-# Add handlers to app
-app.logger.addHandler(file_handler)
-app.logger.addHandler(console_handler)
-app.logger.setLevel(logging.INFO)
+// Usage
+logger.info('Server started', { port: 3000 });
+logger.error('Database connection failed', { error: error.message });
 ```
 
 ## 🚨 Error Handling
 
-### Try-Except Blocks
+### Try-Catch Blocks
 
 **Always handle expected errors:**
-```python
-@app.route('/notes/<int:note_id>/delete', methods=['POST'])
-def delete_note(note_id):
-    try:
-        note = Note.query.get_or_404(note_id)
-        db.session.delete(note)
-        db.session.commit()
-        logger.info(f"Deleted note {note_id}")
-        return redirect('/notes')
-        
-    except Exception as e:
-        logger.error(f"Error deleting note {note_id}: {e}")
-        db.session.rollback()
-        return "Error deleting note", 500
+```typescript
+app.delete('/api/tasks/:id', authenticate, async (req: AuthRequest, res) => {
+  try {
+    const task = await db.tasks.findOne({
+      where: { 
+        id: req.params.id,
+        userId: req.user!.id 
+      }
+    });
+    
+    if (!task) {
+      return res.status(404).json({ error: 'Task not found' });
+    }
+    
+    await db.tasks.delete({ where: { id: task.id } });
+    logger.info(`Deleted task ${task.id}`);
+    
+    res.json({ success: true });
+    
+  } catch (error) {
+    logger.error('Error deleting task', error as Error);
+    res.status(500).json({ error: 'Failed to delete task' });
+  }
+});
 ```
 
-### Custom Error Pages
+### Global Error Handler Middleware
 
-```python
-@app.errorhandler(404)
-def not_found(error):
-    logger.warning(f"404 error: {request.url}")
-    return render_template('404.html'), 404
+```typescript
+// Error handler middleware (must be last!)
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+  logger.error('Unhandled error', err);
+  
+  res.status(500).json({
+    error: process.env.NODE_ENV === 'production' 
+      ? 'Internal server error'
+      : err.message
+  });
+});
 
-@app.errorhandler(500)
-def internal_error(error):
-    logger.error(f"500 error: {error}")
-    db.session.rollback()
-    return render_template('500.html'), 500
+// 404 handler
+app.use((req: Request, res: Response) => {
+  logger.warn(`404 error: ${req.url}`);
+  res.status(404).json({ error: 'Not found' });
+});
 ```
 
-### Validation with Helpful Error Messages
+### Async Error Handling
 
-```python
-@app.route('/notes', methods=['POST'])
-def create_note():
-    title = request.form.get('title', '').strip()
-    content = request.form.get('content', '').strip()
-    
-    # Validate input
-    errors = []
-    
-    if not title:
-        errors.append("Title is required")
-    
-    if len(title) > 100:
-        errors.append("Title must be less than 100 characters")
-    
-    if not content:
-        errors.append("Content is required")
-    
-    if errors:
-        logger.warning(f"Validation errors: {errors}")
-        return render_template('new_note.html', errors=errors)
-    
-    # Proceed with creation
-    note = Note(title=title, content=content)
-    db.session.add(note)
-    db.session.commit()
-    
-    return redirect('/notes')
+**Problem:** Async errors don't get caught by Express automatically
+
+**Solution:** Use a wrapper function or express-async-errors
+
+```typescript
+// npm install express-async-errors
+import 'express-async-errors';
+
+// Now async errors are caught automatically!
+app.get('/api/tasks', async (req, res) => {
+  const tasks = await db.tasks.findAll();
+  res.json({ tasks });
+  // If this throws, Express catches it!
+});
+```
+
+### Validation with Zod
+
+```typescript
+import { z } from 'zod';
+
+const createTaskSchema = z.object({
+  title: z.string().min(1).max(100),
+  description: z.string().max(500),
+  priority: z.enum(['low', 'medium', 'high'])
+});
+
+app.post('/api/tasks', async (req, res) => {
+  try {
+    const data = createTaskSchema.parse(req.body);
+    const task = await createTask(data);
+    res.status(201).json({ task });
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return res.status(400).json({
+        error: 'Validation failed',
+        details: error.errors.map(e => ({
+          field: e.path.join('.'),
+          message: e.message
+        }))
+      });
+    }
+    throw error;  // Let global handler catch it
+  }
+});
 ```
 
 ## 🧪 Testing Basics
@@ -256,113 +360,169 @@ For each feature, test:
 - [ ] Missing required fields
 - [ ] Unauthorized access
 
-### Simple Automated Testing
+### Automated Testing with Jest
 
-**test_app.py:**
-```python
-import pytest
-from app import app, db, Note
+**Setup:**
+```bash
+npm install --save-dev jest @types/jest ts-jest supertest @types/supertest
+```
 
-@pytest.fixture
-def client():
-    app.config['TESTING'] = True
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
+**jest.config.js:**
+```javascript
+module.exports = {
+  preset: 'ts-jest',
+  testEnvironment: 'node',
+  testMatch: ['**/__tests__/**/*.ts', '**/?(*.)+(spec|test).ts']
+};
+```
+
+**src/\_\_tests\_\_/tasks.test.ts:**
+```typescript
+import request from 'supertest';
+import { app } from '../server';
+
+describe('Tasks API', () => {
+  describe('GET /api/tasks', () => {
+    it('should return all tasks', async () => {
+      const response = await request(app)
+        .get('/api/tasks')
+        .expect('Content-Type', /json/)
+        .expect(200);
+      
+      expect(response.body).toHaveProperty('tasks');
+      expect(Array.isArray(response.body.tasks)).toBe(true);
+    });
+  });
+  
+  describe('POST /api/tasks', () => {
+    it('should create a new task', async () => {
+      const newTask = {
+        title: 'Test Task',
+        description: 'Test Description',
+        priority: 'high'
+      };
+      
+      const response = await request(app)
+        .post('/api/tasks')
+        .send(newTask)
+        .expect(201);
+      
+      expect(response.body.task).toHaveProperty('id');
+      expect(response.body.task.title).toBe('Test Task');
+    });
     
-    with app.test_client() as client:
-        with app.app_context():
-            db.create_all()
-        yield client
-        with app.app_context():
-            db.drop_all()
+    it('should reject invalid data', async () => {
+      const invalidTask = {
+        title: '',  // Empty title should fail
+        description: 'Test'
+      };
+      
+      const response = await request(app)
+        .post('/api/tasks')
+        .send(invalidTask)
+        .expect(400);
+      
+      expect(response.body).toHaveProperty('error');
+    });
+  });
+});
+```
 
-def test_home_page(client):
-    """Test home page loads"""
-    response = client.get('/')
-    assert response.status_code == 200
-
-def test_create_note(client):
-    """Test creating a note"""
-    response = client.post('/notes', data={
-        'title': 'Test Note',
-        'content': 'Test Content'
-    }, follow_redirects=True)
-    
-    assert response.status_code == 200
-    assert b'Test Note' in response.data
-
-def test_empty_title(client):
-    """Test validation for empty title"""
-    response = client.post('/notes', data={
-        'title': '',
-        'content': 'Test Content'
-    })
-    
-    assert b'Title is required' in response.data
+**package.json:**
+```json
+{
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  }
+}
 ```
 
 **Run tests:**
 ```bash
-pytest test_app.py
+npm test
 ```
 
 ## 🔍 Common Debugging Scenarios
 
 ### Issue: "Cannot find module"
 ```
-ModuleNotFoundError: No module named 'flask'
+Error: Cannot find module 'express'
 ```
 
 **Solution:**
 ```bash
-# Check if venv is activated
-which python  # Should show path to venv
+npm install
 
-# Install missing module
-pip install flask
+# If specific module is missing
+npm install express
+npm install --save-dev @types/express
 ```
 
-### Issue: "Template not found"
+### Issue: TypeScript errors after compile
 ```
-jinja2.exceptions.TemplateNotFound: notes.html
-```
-
-**Solution:**
-```python
-# Check file structure
-project/
-  app.py
-  templates/
-    notes.html  # Must be in templates folder!
-
-# In app.py, just use filename
-return render_template('notes.html')
-```
-
-### Issue: Database errors
-```
-sqlalchemy.exc.IntegrityError: UNIQUE constraint failed
+error TS2345: Argument of type 'string' is not assignable to parameter of type 'number'
 ```
 
 **Solution:**
-```python
-# Add try-except for database operations
-try:
-    db.session.commit()
-except IntegrityError:
-    db.session.rollback()
-    return "Duplicate entry", 400
+- Read the error carefully - TypeScript is helping you!
+- Fix the type mismatch
+- Don't use `any` to silence errors
+- Use proper type conversion if needed
+
+```typescript
+// ❌ Wrong
+const id = req.params.id;  // string
+await findTask(id);  // expects number
+
+// ✅ Right
+const id = parseInt(req.params.id, 10);
+if (isNaN(id)) {
+  return res.status(400).json({ error: 'Invalid ID' });
+}
+await findTask(id);
 ```
 
-### Issue: Form data not received
-```python
-# Returns None
-title = request.form['title']
+### Issue: Database connection fails
+```
+Error: connect ECONNREFUSED 127.0.0.1:5432
 ```
 
-**Solutions:**
-1. Check form method matches route: `methods=['POST']`
-2. Check input has `name` attribute: `<input name="title">`
-3. Use `.get()` for safer access: `request.form.get('title', '')`
+**Solution:**
+```bash
+# Check if PostgreSQL is running
+sudo service postgresql status
+
+# Check DATABASE_URL environment variable
+echo $DATABASE_URL
+
+# For SQLite, check file permissions
+ls -l database.sqlite
+```
+
+### Issue: Async/await not working
+```typescript
+// Returns Promise { <pending> }
+const tasks = getTasks();
+console.log(tasks);
+```
+
+**Solution:**
+```typescript
+// ❌ Wrong: Missing await
+const tasks = getTasks();
+
+// ✅ Right: Use await
+const tasks = await getTasks();
+
+// Or use .then()
+getTasks().then(tasks => {
+  console.log(tasks);
+});
+```
+
+
 
 ## 📋 Debugging Checklist
 
@@ -378,50 +538,150 @@ When something isn't working:
 
 ## 🛠️ Useful Debugging Tools
 
-### Flask Debug Toolbar
-```python
-from flask_debugtoolbar import DebugToolbarExtension
+### API Testing Tools
 
-app.config['SECRET_KEY'] = 'dev'
-toolbar = DebugToolbarExtension(app)
+**Thunder Client (VS Code Extension):**
+- Built into VS Code
+- Test API endpoints
+- Save request collections
+
+**Postman:**
+- Standalone application
+- Advanced API testing
+- Environment variables
+
+**cURL (Command Line):**
+```bash
+# Test GET endpoint
+curl http://localhost:3000/api/tasks
+
+# Test POST endpoint
+curl -X POST http://localhost:3000/api/tasks \
+  -H "Content-Type: application/json" \
+  -d '{"title":"Test","description":"Test task"}'
+
+# Test with authentication
+curl http://localhost:3000/api/tasks \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
 ```
 
-### Check Database Contents
+### Database Tools
+
+**SQLite:**
 ```bash
 # Open SQLite database
-sqlite3 app.db
+sqlite3 database.sqlite
 
 # List tables
 .tables
 
 # Query data
-SELECT * FROM notes;
+SELECT * FROM tasks;
+
+# Check schema
+.schema tasks
 
 # Exit
 .quit
 ```
 
+**PostgreSQL:**
+```bash
+# Connect to database
+psql -d myapp
+
+# List tables
+\dt
+
+# Query data
+SELECT * FROM tasks;
+
+# Describe table
+\d tasks
+
+# Exit
+\q
+```
+
 ### Browser DevTools
-- **Console** - JavaScript errors, network requests
-- **Network** - See all HTTP requests/responses
+
+Essential for frontend debugging:
+
+- **Console** - JavaScript errors, logs, warnings
+- **Network** - See all HTTP requests/responses, timing
 - **Elements** - Inspect HTML/CSS
+- **Application** - View localStorage, cookies
+- **Sources** - Set breakpoints in JavaScript
+
+**Tips:**
+```typescript
+// Log objects in a readable format
+console.table([{ id: 1, title: 'Task 1' }, { id: 2, title: 'Task 2' }]);
+
+// Group related logs
+console.group('Task Creation');
+console.log('Validating...');
+console.log('Saving...');
+console.groupEnd();
+
+// Measure performance
+console.time('API Call');
+await fetch('/api/tasks');
+console.timeEnd('API Call');
+```
 
 ## 💡 Best Practices
 
-1. **Test as you build** - Don't wait until the end
-2. **Fix one thing at a time** - Don't make multiple changes
-3. **Use version control** - Commit working code frequently
-4. **Write error messages for humans** - "Title is required" not "Error 400"
-5. **Log important events** - You'll thank yourself later
-6. **Handle expected errors** - Database failures, invalid input
-7. **Don't catch all exceptions** - Only catch what you can handle
+### Development Workflow
+
+1. **TypeScript first** - Fix compiler errors before running
+2. **Test as you build** - Don't wait until the end
+3. **Fix one thing at a time** - Don't make multiple changes
+4. **Use version control** - Commit working code frequently
+5. **Write error messages for humans** - "Title is required" not "Error 400"
+6. **Log important events** - You'll thank yourself later
+7. **Handle expected errors** - Database failures, invalid input, network issues
+8. **Let unexpected errors bubble up** - Let global error handler catch them
+
+### Code Quality
+
+```typescript
+// ✅ Good: Type-safe error handling
+try {
+  const user = await getUser(userId);
+  if (!user) {
+    throw new NotFoundError('User not found');
+  }
+  return user;
+} catch (error) {
+  if (error instanceof NotFoundError) {
+    // Handle specific error
+  }
+  throw error;  // Rethrow unknown errors
+}
+
+// ❌ Bad: Swallowing all errors
+try {
+  const user = await getUser(userId);
+  return user;
+} catch (error) {
+  return null;  // Silent failure!
+}
+```
+
+## 📚 Resources
+
+- [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html)
+- [Node.js Debugging Guide](https://nodejs.org/en/docs/guides/debugging-getting-started/)
+- [Jest Documentation](https://jestjs.io/docs/getting-started)
+- [Chrome DevTools](https://developer.chrome.com/docs/devtools/)
 
 ## ⏭️ Next Steps
 
-You now have the tools to debug and test your projects. Apply these techniques as you build!
+You now have the tools to debug and test your TypeScript projects. Apply these techniques as you build!
 
-**Start building:** [Project 1 - Notes App](../projects/01-notes-app/)
+**Start building:** [Project 1 - Authentication System](../projects/01-auth-system/)
 
 ---
 
-💡 **Remember:** Every expert programmer was once a beginner who never gave up debugging!
+💡 **Remember:** TypeScript is your first line of defense against bugs. Trust the compiler, and debugging becomes much easier!
