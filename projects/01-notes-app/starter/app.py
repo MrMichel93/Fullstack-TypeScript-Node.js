@@ -9,7 +9,9 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///notes.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = 'your-secret-key-here'
+# TODO: In production, use environment variables: os.getenv('SECRET_KEY')
+# For development, you can generate a key with: python -c "import os; print(os.urandom(24).hex())"
+app.config['SECRET_KEY'] = 'dev-key-change-in-production'
 
 db = SQLAlchemy(app)
 
