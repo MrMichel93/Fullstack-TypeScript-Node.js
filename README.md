@@ -28,6 +28,7 @@ Learn why TypeScript matters:
 - Preventing bugs with the type system
 - Reading and understanding compiler errors
 - Building maintainable applications
+- **Practice**: 3 exercises with automated tests
 
 ### 2. [TypeScript Fundamentals](./modules/04-typescript-fundamentals/README.md)
 Essential TypeScript concepts:
@@ -35,12 +36,14 @@ Essential TypeScript concepts:
 - Type inference and annotations
 - Union types and generics
 - Working with Express types
+- **Practice**: 3 exercises covering types, generics, and advanced patterns
 
 ### 3. [Architecture Primer](./modules/01-architecture-primer/README.md)
 Learn the fundamentals:
 - Client vs Server
 - HTTP Request/Response lifecycle
 - How modern web apps work
+- **Practice**: 3 exercises with TypeScript implementations
 
 ### 4. Mini Projects (Hands-on)
 
@@ -123,11 +126,51 @@ Visit http://localhost:3000 in your browser!
 ## 📖 How to Use This Course
 
 1. **Start with "Why TypeScript?"** - Understand the TypeScript-first mindset
-2. **Learn TypeScript Fundamentals** - Master the basics before diving into projects
-3. **Read the Architecture Primer** - Understand how web apps work
-4. **Complete projects in order** - Each builds on previous concepts
-5. **Focus on correctness** - Let TypeScript catch bugs before they happen
-6. **Review security and deployment guides** - Learn production best practices
+2. **Practice with exercises** - Each module has TypeScript exercises with tests
+3. **Learn TypeScript Fundamentals** - Master the basics before diving into projects
+4. **Read the Architecture Primer** - Understand how web apps work
+5. **Complete projects in order** - Each builds on previous concepts
+6. **Focus on correctness** - Let TypeScript catch bugs before they happen
+7. **Review security and deployment guides** - Learn production best practices
+
+## 🧪 Running Practice Exercises
+
+Each module includes TypeScript practice files with automated tests using Node.js built-in test runner.
+
+### Run a Single Exercise Test
+
+```bash
+npm run test:module modules/00-why-typescript/task1-discount.test.ts
+```
+
+### Run All Tests in a Module
+
+```bash
+npm run test:module "modules/00-why-typescript/*.test.ts"
+```
+
+### Run All Tests
+
+```bash
+npm test
+```
+
+### Check TypeScript Compilation
+
+Before running tests, verify your code compiles:
+
+```bash
+cd modules/00-why-typescript
+npx tsc --noEmit --strict task1-discount.ts
+```
+
+### Exercise Workflow
+
+1. Read the task `.md` file for instructions
+2. Edit the `.ts` file and implement the TODOs
+3. Check TypeScript compilation errors
+4. Run the tests to verify your solution
+5. Iterate until tests pass and TypeScript is happy!
 
 ## 🎓 For Instructors
 
