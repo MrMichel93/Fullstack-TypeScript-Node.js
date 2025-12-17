@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Notes App{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <h1>Welcome to Your Notes App! 🎉</h1>
+    <p>Keep track of your thoughts, ideas, and reminders.</p>
+    
+    <a href="/notes/new" class="btn-primary">Create Your First Note</a>
+    <a href="/notes" class="btn-secondary">View All Notes</a>
+</div>
+
+<div class="features">
+    <div class="feature-card">
+        <h3>✍️ Create</h3>
+        <p>Write notes with titles and content</p>
+    </div>
+    <div class="feature-card">
+        <h3>📖 Read</h3>
+        <p>View all your notes in one place</p>
+    </div>
+    <div class="feature-card">
+        <h3>✏️ Update</h3>
+        <p>Edit your notes anytime</p>
+    </div>
+    <div class="feature-card">
+        <h3>🗑️ Delete</h3>
+        <p>Remove notes you don't need</p>
+    </div>
+</div>
+{% endblock %}
