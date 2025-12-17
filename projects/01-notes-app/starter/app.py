@@ -94,4 +94,6 @@ if __name__ == '__main__':
         db.create_all()
     
     # Run the app
+    # WARNING: debug=True is for development only! Never use in production!
+    # In production, use a proper WSGI server like gunicorn
     app.run(debug=True)

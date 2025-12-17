@@ -104,4 +104,5 @@ if __name__ == '__main__':
         db.create_all()
     
     # Run the app
+    # Note: debug=True is for development only! Never use in production!
     app.run(debug=True)

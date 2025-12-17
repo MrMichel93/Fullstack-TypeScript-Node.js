@@ -101,4 +101,5 @@ def stats():
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
+    # WARNING: debug=True is for development only! Never use in production!
     app.run(debug=True)
