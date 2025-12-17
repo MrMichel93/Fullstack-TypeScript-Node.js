@@ -291,7 +291,7 @@ In this course, we embrace TypeScript from the start:
 
 Now that you understand **why** TypeScript matters, let's learn **how** to use it effectively.
 
-**Next:** [TypeScript Fundamentals](./04-typescript-fundamentals.md)
+**Next:** [TypeScript Fundamentals](../04-typescript-fundamentals/README.md)
 
 ---
 

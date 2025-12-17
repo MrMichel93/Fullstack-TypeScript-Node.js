@@ -324,4 +324,4 @@ Your project is complete when:
 
 ---
 
-**Need help?** Review the [TypeScript Fundamentals](../../docs/04-typescript-fundamentals.md) and [Security Basics](../../docs/02-security-basics.md) guides.
+**Need help?** Review the [TypeScript Fundamentals](../../modules/04-typescript-fundamentals/README.md) and [Security Basics](../../modules/02-security-basics/README.md) guides.

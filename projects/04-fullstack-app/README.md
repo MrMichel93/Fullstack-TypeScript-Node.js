@@ -347,7 +347,7 @@ Your project will be evaluated on:
 - [TypeScript Best Practices](https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html)
 - [Node.js Best Practices](https://github.com/goldbergyoni/nodebestpractices)
 - [Express.js Production Best Practices](https://expressjs.com/en/advanced/best-practice-performance.html)
-- [Deployment Guide](../../docs/05-deployment.md)
+- [Deployment Guide](../../modules/05-deployment/README.md)
 
 ## ✅ Completion Criteria
 
