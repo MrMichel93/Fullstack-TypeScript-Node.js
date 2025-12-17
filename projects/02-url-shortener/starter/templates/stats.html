@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Statistics - URL Shortener{% endblock %}
+
+{% block content %}
+<h1>📊 URL Statistics</h1>
+
+<!-- TODO: Display table of all URLs -->
+<!-- Requirements:
+     - Show: Short Code, Original URL, Clicks, Created Date
+     - Make URLs clickable
+     - Show "No URLs yet" if empty
+     - Format dates nicely
+-->
+
+<!-- Example table structure:
+<table>
+    <thead>
+        <tr>
+            <th>Short Code</th>
+            <th>Original URL</th>
+            <th>Clicks</th>
+            <th>Created</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for url in urls %}
+        <tr>
+            <td><a href="/{{ url.short_code }}">{{ url.short_code }}</a></td>
+            <td>{{ url.original_url[:50] }}...</td>
+            <td class="clicks">{{ url.clicks }}</td>
+            <td>{{ url.created_at.strftime('%Y-%m-%d') }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+-->
+{% endblock %}

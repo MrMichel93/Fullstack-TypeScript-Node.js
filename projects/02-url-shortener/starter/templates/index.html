@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}URL Shortener - Make Your Links Short{% endblock %}
+
+{% block content %}
+<h1>🔗 URL Shortener</h1>
+<p style="text-align: center; color: #666; margin-bottom: 2rem;">
+    Transform long URLs into short, shareable links!
+</p>
+
+<!-- TODO: Add flash message display for errors -->
+
+<!-- TODO: Create form that submits to /shorten -->
+<!-- Requirements:
+     - Action: /shorten
+     - Method: POST
+     - Input type: url
+     - Input name: url
+     - Input placeholder: "Enter a long URL..."
+     - Submit button: "Shorten URL"
+-->
+
+<div style="margin-top: 3rem; padding-top: 2rem; border-top: 2px solid #eee;">
+    <h3 style="text-align: center; color: #666;">How it works:</h3>
+    <ol style="color: #666; margin-left: 2rem;">
+        <li>Paste your long URL</li>
+        <li>Get a short link instantly</li>
+        <li>Share it anywhere!</li>
+    </ol>
+</div>
+{% endblock %}
