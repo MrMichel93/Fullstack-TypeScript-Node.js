@@ -1,67 +1,76 @@
 # Course Guide for Instructors
 
-This guide helps instructors effectively teach the Full-Stack Development with Python course.
+This guide helps instructors effectively teach the Modern Full-Stack Development with TypeScript & Node.js course.
 
 ## 🎯 Course Overview
 
-**Target Audience:** Ages 16-20 with basic Python and HTML knowledge
+**Target Audience:** Ages 16-20 with basic JavaScript knowledge
 
-**Duration:** 8-12 weeks (2-3 weeks per project)
+**Duration:** 10-14 weeks (2-3 weeks per project)
 
-**Format:** Project-based, hands-on learning
+**Format:** Project-based, hands-on learning with TypeScript-first approach
 
-**Philosophy:** Learn by doing, not by theory
+**Philosophy:** Learn by doing, not by theory. Emphasize correctness and maintainability from day one.
 
 ## 📅 Suggested Schedule
 
-### Week 1: Introduction & Architecture
-- **Day 1-2:** Course overview, setup, environment configuration
-- **Day 3-4:** Architecture Primer (client/server, HTTP)
-- **Day 5:** Security overview, debugging basics
-- **Homework:** Read all documentation, set up development environment
+### Week 1: Introduction & TypeScript Foundations
+- **Day 1-2:** Course overview, Node.js setup, VS Code configuration
+- **Day 3-4:** Why TypeScript? Reading compiler errors, type basics
+- **Day 5:** TypeScript fundamentals: types vs interfaces, functions
+- **Homework:** Complete TypeScript exercises, set up development environment
 
-### Weeks 2-3: Project 1 - Notes App
-- **Week 2:** Basic CRUD operations, database basics
-- **Week 3:** Complete implementation, extensions, code review
-- **Deliverable:** Working notes app with at least one extension
+### Week 2: Architecture & Backend Basics
+- **Day 1-2:** Architecture Primer (client/server, HTTP, REST APIs)
+- **Day 3-4:** Express basics, routing, middleware concepts
+- **Day 5:** Database fundamentals (SQLite or PostgreSQL)
+- **Homework:** Read security and debugging documentation
 
-### Weeks 4-5: Project 2 - URL Shortener
-- **Week 4:** URL handling, redirects, unique ID generation
-- **Week 5:** Statistics, validation, complete implementation
-- **Deliverable:** Working URL shortener with click tracking
+### Weeks 3-5: Project 1 - Authentication System
+- **Week 3:** User registration, password hashing with bcrypt
+- **Week 4:** Login with JWT, middleware for authentication
+- **Week 5:** Input validation with Zod, error handling, code review
+- **Deliverable:** Working auth API with proper type safety
 
-### Weeks 6-8: Project 3 - Simple Blog
-- **Week 6:** User authentication, password hashing
-- **Week 7:** Sessions, protected routes
-- **Week 8:** User-specific data, complete implementation
-- **Deliverable:** Multi-user blog with authentication
+### Weeks 6-7: Project 2 - Task Manager API
+- **Week 6:** REST API design, CRUD operations with TypeScript
+- **Week 7:** User-specific tasks, validation, testing
+- **Deliverable:** Complete REST API with Postman/Thunder Client tests
 
-### Weeks 9-11: Project 4 - Inventory Tracker
-- **Week 9:** Complex queries, search functionality
-- **Week 10:** Filtering, sorting, validation
-- **Week 11:** Dashboard, complete implementation
-- **Deliverable:** Full inventory management system
+### Weeks 8-10: Project 3 - Simple Dashboard
+- **Week 8:** Frontend with vanilla TypeScript, consuming APIs
+- **Week 9:** User authentication flow in frontend
+- **Week 10:** Dynamic UI updates, charts/statistics
+- **Deliverable:** Interactive dashboard consuming the Task Manager API
 
-### Week 12: Final Projects & Deployment
-- Polish projects
-- Deploy to cloud
+### Weeks 11-13: Project 4 - Full-Stack Application
+- **Week 11:** Advanced TypeScript features, project structure
+- **Week 12:** Environment configuration, build process
+- **Week 13:** Complete implementation, code quality review
+- **Deliverable:** Production-ready full-stack application
+
+### Week 14: Deployment & Portfolio
+- Deploy projects to production (Railway, Render, or Heroku)
 - Create portfolio presentations
+- Final code reviews and best practices discussion
 
 ## 👥 Teaching Tips
 
 ### For Beginners (Ages 16-17)
-- **More scaffolding:** Provide more complete starter code
-- **Pair programming:** Have students work in pairs
-- **Frequent check-ins:** Review progress every class
-- **Extra resources:** Provide video tutorials
-- **Smaller steps:** Break TODOs into smaller sub-tasks
+- **Start with JavaScript:** Briefly review JavaScript before TypeScript
+- **More scaffolding:** Provide more complete starter code with types
+- **Pair programming:** Have students work in pairs on TypeScript errors
+- **Frequent check-ins:** Review progress and compiler errors every class
+- **Extra resources:** Provide video tutorials on TypeScript concepts
+- **Smaller steps:** Break TODOs into smaller sub-tasks with type hints
 
 ### For Advanced Students (Ages 18-20)
-- **Less scaffolding:** Provide minimal starter code
+- **Strict mode:** Keep strict TypeScript settings from the start
+- **Less scaffolding:** Provide minimal starter code, let them define types
 - **Extensions first:** Encourage starting extensions early
-- **Code reviews:** Have students review each other's code
-- **Best practices:** Emphasize production-ready code
-- **Research tasks:** Assign independent research
+- **Code reviews:** Have students review each other's TypeScript code
+- **Best practices:** Emphasize production-ready, maintainable code
+- **Research tasks:** Assign independent research on advanced TS features
 
 ## 🎓 Teaching Strategies
 
@@ -97,50 +106,84 @@ This guide helps instructors effectively teach the Full-Stack Development with P
 
 ## 🐛 Common Student Mistakes
 
-### Mistake 1: Forgetting to Activate Virtual Environment
+### Mistake 1: Using `any` to Bypass Type Checking
+**Symptom:** Types compile but bugs still occur
+
+**Solution:**
+- Explain that `any` defeats TypeScript's purpose
+- Show how to use `unknown` and type guards instead
+- Enable `noImplicitAny` in tsconfig.json
+- Demonstrate proper typing patterns
+
+### Mistake 2: Not Reading TypeScript Errors
+**Symptom:** "TypeScript is too hard!"
+
+**Solution:**
+- Teach how to read compiler errors line by line
+- Break down complex error messages
+- Show that errors prevent runtime bugs
+- Practice fixing errors together
+
+### Mistake 3: Forgetting to Run `npm install`
 **Symptom:** "Module not found" errors
 
 **Solution:**
 ```bash
-# Show them this visual cue
-(venv)  # <- This should appear in terminal
+# After cloning or when dependencies change
+npm install
+
+# Check node_modules exists
+ls node_modules
 ```
 
-### Mistake 2: Not Saving Files
-**Symptom:** "Changes don't show up"
+### Mistake 4: Not Compiling TypeScript
+**Symptom:** "Changes don't show up" or "Cannot find module"
 
 **Solution:**
-- Use auto-save in editor
-- Always check file has * indicator
-- Hard refresh browser (Ctrl+Shift+R)
+```bash
+# Development mode (auto-recompile)
+npm run dev
 
-### Mistake 3: Mixing Tabs and Spaces
-**Symptom:** IndentationError
+# Manual build
+npm run build
+node dist/server.js
+```
 
-**Solution:**
-- Configure editor to use 4 spaces
-- Use a linter (flake8, pylint)
-- Show them how to reveal whitespace
-
-### Mistake 4: Not Reading Error Messages
-**Symptom:** "It doesn't work!"
+### Mistake 5: Mixing Up Types and Values
+**Symptom:** "Cannot find name 'User'"
 
 **Solution:**
-- Teach how to read tracebacks
-- Find the last line in their code
-- Google the error message
-- Use debug mode in Flask
+```typescript
+// ❌ Wrong: importing type as value
+import User from './types';
 
-### Mistake 5: Copy-Pasting Without Understanding
-**Symptom:** Code works but can't explain it
+// ✅ Right: import type syntax
+import { type User } from './types';
+```
+
+### Mistake 6: Not Understanding Async/Await
+**Symptom:** "Promise pending" or unhandled rejections
 
 **Solution:**
-- Ask them to explain each line
-- Have them modify it slightly
-- Remove the code and rewrite from memory
-- Pair programming review
+- Review Promises and async/await
+- Show proper error handling with try/catch
+- Demonstrate Promise.all() for parallel operations
+- Use TypeScript's Promise<T> type
 
-### Mistake 6: Not Committing Frequently
+### Mistake 7: Port Already in Use
+**Symptom:** "EADDRINUSE: address already in use"
+
+**Solution:**
+```bash
+# Find process using port 3000
+lsof -i :3000  # Mac/Linux
+netstat -ano | findstr :3000  # Windows
+
+# Kill the process or use different port
+PORT=3001 npm run dev
+```
+
+### Mistake 8: Not Committing Frequently
 **Symptom:** Losing work, can't undo changes
 
 **Solution:**
@@ -190,27 +233,43 @@ This guide helps instructors effectively teach the Full-Stack Development with P
 
 ## 🚧 Common Issues & Solutions
 
-### Issue: "My database won't update!"
-- Delete the .db file
-- Run `db.create_all()` again
-- Or use Flask-Migrate for schema changes
+### Issue: "Cannot find module" after compile
+- Check imports use correct file extensions (or none)
+- Verify `tsconfig.json` has correct `rootDir` and `outDir`
+- Run `npm run build` to recompile
+- Check `package.json` main points to `dist/server.js`
 
-### Issue: "Port 5000 already in use"
-```python
+### Issue: "Type errors but code works in JavaScript"
+- This is TypeScript catching potential bugs!
+- Don't use `@ts-ignore` to silence errors
+- Properly type the code or use type guards
+- Review TypeScript fundamentals guide
+
+### Issue: "Port 3000 already in use"
+```bash
 # Use a different port
-app.run(debug=True, port=5001)
+PORT=3001 npm run dev
+
+# Or kill the process using port 3000
+# Mac/Linux: lsof -i :3000 then kill -9 <PID>
+# Windows: netstat -ano | findstr :3000 then taskkill /PID <PID> /F
 ```
 
-### Issue: "Template not found"
-- Check file is in `templates/` folder
-- Check filename spelling
-- Check `render_template('filename.html')` syntax
+### Issue: "Database connection fails"
+- Check DATABASE_URL environment variable is set
+- Verify database server is running (for PostgreSQL)
+- Check SQLite file permissions
+- Review connection configuration
 
-### Issue: "Static files not loading"
-- Hard refresh browser
-- Check file is in `static/` folder
-- Check `url_for('static', filename='style.css')` syntax
-- Restart Flask server
+### Issue: "CORS errors in browser"
+```typescript
+// Install cors middleware
+npm install cors @types/cors
+
+// Use in Express
+import cors from 'cors';
+app.use(cors());
+```
 
 ## 💡 Extension Challenge Ideas
 
@@ -237,19 +296,21 @@ Encourage students to try these after completing basic projects:
 ## 📚 Additional Resources
 
 ### For Instructors
-- [Python Teaching Resources](https://wiki.python.org/moin/BeginnersGuide/Teachers)
+- [TypeScript Documentation](https://www.typescriptlang.org/docs/)
+- [Node.js Best Practices](https://github.com/goldbergyoni/nodebestpractices)
 - [CS50's Introduction to Web Development](https://cs50.harvard.edu/web/)
-- [Full Stack Open](https://fullstackopen.com/)
+- [Full Stack Open](https://fullstackopen.com/) (Parts 1-4 relevant)
 
 ### For Students
-- [Flask Mega-Tutorial](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world)
-- [Python Official Tutorial](https://docs.python.org/3/tutorial/)
-- [W3Schools HTML/CSS](https://www.w3schools.com/)
-- [SQLAlchemy Documentation](https://docs.sqlalchemy.org/)
+- [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html)
+- [MDN JavaScript Guide](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide)
+- [Express.js Documentation](https://expressjs.com/)
+- [Node.js Documentation](https://nodejs.org/docs/latest/api/)
 
 ### Video Tutorials
-- [Corey Schafer's Flask Series](https://www.youtube.com/playlist?list=PL-osiE80TeTs4UjLw5MM6OjgkjFeUxCYH)
-- [Tech With Tim Flask](https://www.youtube.com/watch?v=mqhxxeeTbu0&list=PLzMcBGfZo4-n4vJJybUVV3Un_NFS5EOgX)
+- [Net Ninja TypeScript Tutorial](https://www.youtube.com/playlist?list=PL4cUxeGkcC9gUgr39Q_yD6v-bSyMwKPUI)
+- [Traversy Media Node.js Crash Course](https://www.youtube.com/watch?v=fBNz5xF-Kx4)
+- [Fireship TypeScript in 100 Seconds](https://www.youtube.com/watch?v=zQnBQ4tB3ZA)
 
 ## 🤝 Getting Help
 
@@ -265,23 +326,45 @@ Encourage students to try these after completing basic projects:
 ### Questions to Ask Students
 - "What did you expect to happen?"
 - "What actually happened?"
+- "What does the TypeScript error say?"
+- "What type does TypeScript think this variable is?"
 - "What have you tried so far?"
-- "Can you show me the error message?"
+- "Can you show me the full error message?"
 - "What was the last thing you changed?"
 
 ## 🎯 Learning Outcomes
 
 By the end of this course, students should be able to:
 
-**Technical Skills:**
-- [ ] Build a web application from scratch
+**TypeScript Skills:**
+- [ ] Write type-safe TypeScript code
+- [ ] Choose between types and interfaces appropriately
+- [ ] Use generics and utility types
+- [ ] Read and fix TypeScript compiler errors
+- [ ] Understand when and how to use unknown vs any
+
+**Backend Development:**
+- [ ] Build REST APIs with Express and TypeScript
 - [ ] Design and implement database schemas
-- [ ] Handle HTTP requests and responses
-- [ ] Implement user authentication
-- [ ] Validate and sanitize user input
-- [ ] Debug common web development issues
-- [ ] Use version control (git)
-- [ ] Deploy applications to the web
+- [ ] Handle HTTP requests and responses with proper typing
+- [ ] Implement JWT authentication
+- [ ] Validate and sanitize user input with libraries like Zod
+- [ ] Write middleware for error handling and authentication
+- [ ] Manage environment variables securely
+
+**Frontend Development:**
+- [ ] Build interactive UIs with vanilla TypeScript
+- [ ] Consume REST APIs with typed responses
+- [ ] Handle asynchronous operations properly
+- [ ] Display dynamic data without frameworks
+
+**Software Engineering:**
+- [ ] Organize code with proper folder structure
+- [ ] Write maintainable, readable code
+- [ ] Debug TypeScript applications
+- [ ] Use version control (git) effectively
+- [ ] Deploy applications to production
+- [ ] Understand build steps and compilation
 
 **Soft Skills:**
 - [ ] Read and write technical documentation
@@ -289,7 +372,7 @@ By the end of this course, students should be able to:
 - [ ] Research solutions independently
 - [ ] Explain technical concepts clearly
 - [ ] Collaborate on code projects
-- [ ] Persist through challenging bugs
+- [ ] Persist through challenging compiler errors
 
 ## 🎉 Celebration Ideas
 
