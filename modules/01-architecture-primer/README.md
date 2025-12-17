@@ -282,3 +282,52 @@ Now that you understand the architecture, you're ready to build!
 ---
 
 💡 **Pro Tip:** Keep this document open as a reference while building your first project. These concepts will make more sense as you see them in action!
+
+---
+
+## 🏋️ Practice Exercises
+
+This module includes hands-on TypeScript exercises with automated tests.
+
+### Available Tasks
+
+Each task has:
+- A `.md` file with detailed instructions
+- A `.ts` file with starter code and TODOs
+- A `.test.ts` file with automated tests
+
+### How to Work on Exercises
+
+1. **Read the task markdown file** for detailed instructions:
+   ```bash
+   cat task1.md
+   ```
+
+2. **Open the TypeScript file** and implement the TODOs:
+   ```bash
+   code task1.ts
+   ```
+
+3. **Check TypeScript compilation**:
+   ```bash
+   npx tsc --noEmit --strict task1.ts
+   ```
+
+4. **Run the tests** to verify your solution:
+   ```bash
+   npm run test:module task1.test.ts
+   ```
+
+### Running All Tests for This Module
+
+```bash
+# Replace <module-name> with the actual module directory name
+npm run test:module "modules/<module-name>/*.test.ts"
+```
+
+### Tips
+
+- Complete tasks in order (task1 → task2 → task3)
+- Read compiler errors carefully
+- Run tests frequently for immediate feedback
+- Refer back to the main README content for concepts

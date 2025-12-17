@@ -583,3 +583,62 @@ Now that you understand TypeScript fundamentals, you're ready to start building 
 ---
 
 **Remember:** TypeScript is a tool to help you write better code. When you get a compiler error, read it carefully—it's trying to help you avoid bugs!
+
+---
+
+## 🏋️ Practice Exercises
+
+This module includes comprehensive TypeScript exercises with automated tests.
+
+### Available Tasks
+
+1. **task1-types-interfaces.ts** - Types vs Interfaces
+   - Learn when to use `type` vs `interface`
+   - Practice creating both for different scenarios
+   - See [task1.md](./task1.md) for details
+
+2. **task2-generics.ts** - Generics in Action
+   - Master type-safe generic functions and classes
+   - Build a reusable Repository class
+   - See [task2.md](./task2.md) for details
+
+3. **task3-advanced-patterns.ts** - Advanced TypeScript Patterns
+   - Work with utility types (Pick, Omit, Partial)
+   - Implement type guards and discriminated unions
+   - See [task3.md](./task3.md) for details
+
+### How to Work on Exercises
+
+1. **Read the task markdown file** for detailed instructions:
+   ```bash
+   cat task1.md
+   ```
+
+2. **Open the TypeScript file** and implement the TODOs:
+   ```bash
+   code task1-types-interfaces.ts
+   ```
+
+3. **Check TypeScript compilation**:
+   ```bash
+   npx tsc --noEmit --strict task1-types-interfaces.ts
+   ```
+
+4. **Run the tests** to verify your solution:
+   ```bash
+   npm run test:module task1-types-interfaces.test.ts
+   ```
+
+### Running All Tests for This Module
+
+```bash
+npm run test:module "modules/04-typescript-fundamentals/*.test.ts"
+```
+
+### Learning Path
+
+1. Start with **Task 1** to understand types vs interfaces
+2. Move to **Task 2** to master generics
+3. Finish with **Task 3** for advanced patterns
+
+Each task builds on concepts from previous ones, so complete them in order.

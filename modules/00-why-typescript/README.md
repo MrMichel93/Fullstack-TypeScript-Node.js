@@ -296,3 +296,65 @@ Now that you understand **why** TypeScript matters, let's learn **how** to use i
 ---
 
 **Remember:** TypeScript is not about making JavaScript harder. It's about making your code **more reliable and maintainable**. Embrace the compiler, and it will become your best debugging tool!
+
+---
+
+## 🏋️ Practice Exercises
+
+This module includes hands-on TypeScript exercises with automated tests.
+
+### Available Tasks
+
+1. **task1-discount.ts** - Type Safety Exercise
+   - Learn to add type annotations to functions
+   - See how TypeScript catches bugs before runtime
+
+2. **task2-product.ts** - Interface Definition Exercise
+   - Practice defining object shapes with interfaces
+   - Implement type-safe functions
+
+3. **task3-register.ts** - Reading TypeScript Errors
+   - Learn to interpret TypeScript compiler errors
+   - Fix type-related bugs systematically
+
+### How to Work on Exercises
+
+1. **Read the task markdown file** for detailed instructions:
+   ```bash
+   cat task1.md  # Read instructions
+   ```
+
+2. **Open the TypeScript file** and implement the TODOs:
+   ```bash
+   # Edit the file with your solution
+   code task1-discount.ts
+   ```
+
+3. **Check TypeScript compilation** (should show errors until you add types):
+   ```bash
+   npx tsc --noEmit --strict task1-discount.ts
+   ```
+
+4. **Run the tests** to verify your solution:
+   ```bash
+   npm run test:module task1-discount.test.ts
+   ```
+
+### Running All Tests for This Module
+
+```bash
+npm run test:module "modules/00-why-typescript/*.test.ts"
+```
+
+### What Tests Check
+
+- ✅ Your implementation produces correct results
+- ✅ TypeScript can compile your code without errors
+- ✅ Type annotations prevent invalid usage
+
+### Tips
+
+- Start with Task 1 and work your way up
+- Read compiler errors carefully - they tell you exactly what's wrong
+- Use your IDE's autocomplete to explore available types
+- Run tests frequently to get immediate feedback
