@@ -432,8 +432,8 @@ app.get('/profile/:username', (req: Request, res: Response) => {
 ## 📚 Learn More
 
 - [OWASP Top 10](https://owasp.org/www-project-top-ten/) - Most critical web security risks
-- [Flask Security](https://flask.palletsprojects.com/en/latest/security/) - Official Flask security guide
-- [Python Security Best Practices](https://python.readthedocs.io/en/latest/library/security.html)
+- [Express Security Best Practices](https://expressjs.com/en/advanced/best-practice-security.html) - Official Express security guide
+- [Node.js Security Best Practices](https://nodejs.org/en/docs/guides/security/) - Official Node.js security documentation
 
 ## ⏭️ Next Steps
 
