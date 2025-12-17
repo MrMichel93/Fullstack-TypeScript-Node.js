@@ -680,7 +680,7 @@ try {
 
 You now have the tools to debug and test your TypeScript projects. Apply these techniques as you build!
 
-**Start building:** [Project 1 - Authentication System](../projects/01-auth-system/)
+**Start building:** [Project 1 - Authentication System](../../projects/01-auth-system/)
 
 ---
 
