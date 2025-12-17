@@ -4,7 +4,7 @@
   "description": "A project-based course for learning modern full-stack development with TypeScript & Node.js",
   "main": "index.js",
   "scripts": {
-    "test": "find modules -name '*.test.ts' -type f | xargs tsx --test",
+    "test": "find modules -name '*.test.ts' -type f -exec tsx --test {} +",
     "test:module": "tsx --test"
   },
   "repository": {
