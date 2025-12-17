@@ -131,6 +131,6 @@ Follow the TODO comments in the code to implement each feature:
 
 ## Need Help?
 
-- Review [TypeScript Fundamentals](../../../docs/04-typescript-fundamentals.md)
-- Read [Security Basics](../../../docs/02-security-basics.md)
-- Check [Debugging & Testing](../../../docs/03-debugging-testing.md)
+- Review [TypeScript Fundamentals](../../../modules/04-typescript-fundamentals/README.md)
+- Read [Security Basics](../../../modules/02-security-basics/README.md)
+- Check [Debugging & Testing](../../../modules/03-debugging-testing/README.md)

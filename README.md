@@ -23,20 +23,20 @@ This is not a theory course. You learn by building real-world web applications t
 
 ## 📚 Course Structure
 
-### 1. [Why TypeScript?](./docs/00-why-typescript.md)
+### 1. [Why TypeScript?](./modules/00-why-typescript/README.md)
 Learn why TypeScript matters:
 - Preventing bugs with the type system
 - Reading and understanding compiler errors
 - Building maintainable applications
 
-### 2. [TypeScript Fundamentals](./docs/04-typescript-fundamentals.md)
+### 2. [TypeScript Fundamentals](./modules/04-typescript-fundamentals/README.md)
 Essential TypeScript concepts:
 - Types vs Interfaces
 - Type inference and annotations
 - Union types and generics
 - Working with Express types
 
-### 3. [Architecture Primer](./docs/01-architecture-primer.md)
+### 3. [Architecture Primer](./modules/01-architecture-primer/README.md)
 Learn the fundamentals:
 - Client vs Server
 - HTTP Request/Response lifecycle
@@ -63,19 +63,19 @@ Throughout the course, learn professional habits:
 - **Validation**: Input validation with libraries like Zod
 - **Code Quality**: ESLint, Prettier, consistent patterns
 
-### 6. [Security Basics](./docs/02-security-basics.md)
+### 6. [Security Basics](./modules/02-security-basics/README.md)
 - Password hashing with bcrypt
 - Input validation and sanitization
 - JWT authentication
 - Common vulnerabilities (SQL injection, XSS)
 
-### 7. [Debugging & Testing](./docs/03-debugging-testing.md)
+### 7. [Debugging & Testing](./modules/03-debugging-testing/README.md)
 - TypeScript compiler as your first debugger
 - Logging best practices
 - Error handling patterns
 - Testing with Jest
 
-### 8. [Deployment Concepts](./docs/05-deployment.md)
+### 8. [Deployment Concepts](./modules/05-deployment/README.md)
 - Build steps and compilation
 - Environment variables
 - Deploying to production
@@ -200,4 +200,4 @@ MIT License - Feel free to use this for teaching or learning.
 
 ---
 
-**Ready to build?** Start with [Why TypeScript?](./docs/00-why-typescript.md)!
+**Ready to build?** Start with [Why TypeScript?](./modules/00-why-typescript/README.md)!

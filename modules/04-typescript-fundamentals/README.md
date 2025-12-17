@@ -578,7 +578,7 @@ function updateTask(
 
 Now that you understand TypeScript fundamentals, you're ready to start building projects!
 
-**Next:** [Architecture Primer](./01-architecture-primer.md) to understand how web applications work, then dive into [Project 1: Auth System](../projects/01-auth-system/).
+**Next:** [Architecture Primer](../01-architecture-primer/README.md) to understand how web applications work, then dive into [Project 1: Auth System](../../projects/01-auth-system/).
 
 ---
 

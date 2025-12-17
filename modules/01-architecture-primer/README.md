@@ -277,7 +277,7 @@ Before moving to Project 1, make sure you can answer:
 
 Now that you understand the architecture, you're ready to build!
 
-**Start with:** [Project 1 - Authentication System](../projects/01-auth-system/)
+**Start with:** [Project 1 - Authentication System](../../projects/01-auth-system/)
 
 ---
 

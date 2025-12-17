@@ -391,29 +391,32 @@ Before deploying, verify:
 
 Can you identify the security issues in this code?
 
-```python
-@app.route('/login', methods=['POST'])
-def login():
-    username = request.form['username']
-    password = request.form['password']
+```typescript
+// TypeScript/Express version
+app.post('/login', (req: Request, res: Response) => {
+    const username = req.body.username;
+    const password = req.body.password;
     
-    # Issue #1?
-    query = f"SELECT * FROM users WHERE username='{username}' AND password='{password}'"
-    user = db.execute(query).fetchone()
+    // Issue #1?
+    const query = `SELECT * FROM users WHERE username='${username}' AND password='${password}'`;
+    const user = db.query(query);
     
-    if user:
-        # Issue #2?
-        session['user'] = username
-        return f"Welcome {username}!"
-    else:
-        # Issue #3?
-        return "Login failed! Username or password is incorrect."
+    if (user) {
+        // Issue #2?
+        req.session.user = username;
+        return res.send(`Welcome ${username}!`);
+    } else {
+        // Issue #3?
+        return res.status(401).send("Login failed! Username or password is incorrect.");
+    }
+});
 
-@app.route('/profile/<username>')
-def profile(username):
-    # Issue #4?
-    user = User.query.filter_by(username=username).first()
-    return render_template('profile.html', user=user)
+app.get('/profile/:username', (req: Request, res: Response) => {
+    // Issue #4?
+    const username = req.params.username;
+    const user = db.query(`SELECT * FROM users WHERE username='${username}'`);
+    res.render('profile', { user });
+});
 ```
 
 <details>
@@ -429,14 +432,14 @@ def profile(username):
 ## 📚 Learn More
 
 - [OWASP Top 10](https://owasp.org/www-project-top-ten/) - Most critical web security risks
-- [Flask Security](https://flask.palletsprojects.com/en/latest/security/) - Official Flask security guide
-- [Python Security Best Practices](https://python.readthedocs.io/en/latest/library/security.html)
+- [Express Security Best Practices](https://expressjs.com/en/advanced/best-practice-security.html) - Official Express security guide
+- [Node.js Security Best Practices](https://nodejs.org/en/docs/guides/security/) - Official Node.js security documentation
 
 ## ⏭️ Next Steps
 
 Understanding security is crucial. Review these concepts as you build each project.
 
-**Continue to:** [Debugging & Testing Guide](./03-debugging-testing.md)
+**Continue to:** [Debugging & Testing Guide](../03-debugging-testing/README.md)
 
 ---
 
