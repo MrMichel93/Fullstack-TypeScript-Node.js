@@ -10,6 +10,21 @@ cp .env.example .env
 npm run dev
 ```
 
+## Reusing Components from Project 1
+
+Copy these files from your completed Project 1:
+
+**Authentication:**
+- `src/middleware/auth.ts` - JWT verification middleware
+- `src/utils/jwt.ts` - JWT token utilities
+- `src/models/User.ts` - User interface/model
+
+**Configuration:**
+- `.env` - Update with your JWT_SECRET
+- `src/config.ts` - Environment configuration
+
+You'll extend the validation schemas to include task-specific rules.
+
 ## What You'll Build
 
 A complete REST API for task management with:
@@ -17,7 +32,7 @@ A complete REST API for task management with:
 - User-specific tasks
 - Filtering and sorting
 - Proper validation
-- Authentication required
+- Authentication required (using Project 1 middleware)
 
 ## Structure
 
@@ -29,16 +44,16 @@ src/
 │   ├── auth.ts      # From Project 1
 │   └── tasks.ts     # New: Task routes
 ├── middleware/
-│   ├── auth.ts      # From Project 1
+│   ├── auth.ts      # COPY from Project 1
 │   └── errorHandler.ts
 ├── models/
-│   ├── User.ts      # From Project 1
+│   ├── User.ts      # COPY from Project 1
 │   └── Task.ts      # New: Task model
 ├── services/
-│   ├── auth.ts      # From Project 1
+│   ├── auth.ts      # From Project 1 (if needed)
 │   └── tasks.ts     # New: Task logic
 └── utils/
-    ├── jwt.ts       # From Project 1
+    ├── jwt.ts       # COPY from Project 1
     └── validation.ts # Extend with task schemas
 ```
 
